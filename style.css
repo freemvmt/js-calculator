@@ -53,6 +53,7 @@ body {
 }
 
 #execute {
+  font-size: 3rem;
   background-color: green;
   grid-column-start: 4;
   grid-column-end: 6;

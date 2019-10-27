@@ -62,6 +62,9 @@ var addToDisplay = function(event) {
     if (nonZeroNums.includes(event.target)) {
       display.textContent = event.target.textContent;
     }
+    else if (operators.includes(event.target)) {
+
+    }
     else if (event.target == pointButton) {
       display.textContent = '0.';
     }
@@ -78,25 +81,36 @@ var addToDisplay = function(event) {
     }
     // input: [1-9]
     // can be added at any point
-    if (nonZeroNums.includes(event.target)) {
+    else if (nonZeroNums.includes(event.target)) {
       display.textContent += event.target.textContent;
     }
     // input: .
     // can be added after any character, but not twice in one number
-    if (!(lastNum.includes('.'))) {
-      if (opRegex.test(lastChar)) {
-        display.textContent += '0.';
-      }
-      else {
-        display.textContent += '.';
+    else if (event.target == pointButton) {
+      if (!(lastNum.includes('.'))) {
+        if (opRegex.test(lastChar)) {
+          display.textContent += '0.';
+        }
+        else {
+          display.textContent += '.';
+        }
       }
     }
     // input: [+-/*]
     // can only be added to a number, except -, which can be added once to any operator other than itself
-    if (lastChar != '-' && lastOps.length < 2) { // i.e. last run is either a number or a single operator other than -
-      event.target == divideButton ? display.textContent += '/' :
-        event.target == multiplyButton ? display.textContent =+ '*' :
-        display.textContent += event.target.textContent;
+    else if (operators.includes(event.target)) {
+      if (event.target == subtractButton) {
+        if (lastChar != '-' && lastOps.length < 2) { // i.e. - is pressed and last run is either a number or a single operator other than -
+          display.textContent += '-';
+        }
+      }
+      else {
+        if (lastOps.length == 0) {
+          event.target == divideButton ? display.textContent += '/' :
+            event.target == multiplyButton ? display.textContent += '*' :
+            display.textContent += '+';
+        }
+      }
     }
   }
   // not yet handled: case when result is displayed

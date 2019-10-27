@@ -125,8 +125,16 @@ var backspace = function(event) {
 }
 
 // make function to handle execution of on-screen expression
-
+var execute = function(event) {
+  if (event.target == equalsButton) {
+    // is use of eval safe here because the possible inputs are tightly controlled?
+    let result = eval(display.textContent);
+    console.log(result);
+    display.textContent = result;
+  }
+}
 
 // attach all event listeners to the input-container object
 pad.addEventListener('click',addToDisplay);
 pad.addEventListener('click',backspace);
+pad.addEventListener('click',execute);

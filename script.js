@@ -1,5 +1,4 @@
 /* Functions to write:
-- total reset
 - last answer recall
 - memory storage and recall
 */
@@ -161,6 +160,13 @@ var reset = function(event) {
     lastResult = '';
     justExecuted = false;
     display.textContent = '0';
+  }
+}
+
+// make function to enable memory storage
+var remember = function(event) {
+  if (event.target == memButton) {
+    memory = display.textContent;
   }
 }
 

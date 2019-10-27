@@ -1,11 +1,8 @@
 /* Functions to write:
-1. input of numbers and decimal points
-2. input of operands
-3. deletion of inputs of either kind
-4. execution of on-screen expression and representation of result
-5. total reset
-6. last answer recall
-7. memory storage and recall
+- execution of on-screen expression and representation of result
+- total reset
+- last answer recall
+- memory storage and recall
 */
 
 /* Global variables required:
@@ -65,7 +62,9 @@ var addToDisplay = function(event) {
       display.textContent = event.target.textContent;
     }
     else if (operators.includes(event.target)) {
-
+      event.target == divideButton ? display.textContent += '/' :
+        event.target == multiplyButton ? display.textContent += '*' :
+        display.textContent += event.target.textContent;
     }
     else if (event.target == pointButton) {
       display.textContent = '0.';
@@ -82,9 +81,9 @@ var addToDisplay = function(event) {
       }
     }
     // input: [1-9]
-    // can be added at any point
+    // can be added at any point, but should replace single zeroes
     else if (nonZeroNums.includes(event.target)) {
-      display.textContent += event.target.textContent;
+      lastNum == '0' ? display.textContent = display.textContent.slice(0,-1) + event.target.textContent : display.textContent += event.target.textContent;
     }
     // input: .
     // can be added after any character, but not twice in one number
@@ -118,4 +117,16 @@ var addToDisplay = function(event) {
   // not yet handled: case when result is displayed
 }
 
+// make function to handle deletions
+var backspace = function(event) {
+  if (event.target == backButton) {
+    display.textContent = display.textContent.slice(0,-1);
+  }
+}
+
+// make function to handle execution of on-screen expression
+
+
+// attach all event listeners to the input-container object
 pad.addEventListener('click',addToDisplay);
+pad.addEventListener('click',backspace);

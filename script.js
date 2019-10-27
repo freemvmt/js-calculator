@@ -18,6 +18,23 @@
 */
 
 /* Notes:
-- might be easier (and more in keeping with functional programming norms) to only parse
-the displayed string on execution rather than constantly during input phase
+- might be easier (and more in keeping with functional programming norms) to only parse the displayed string on execution rather than constantly during input phase
+- can catch all button press events on the input-container div because they will all bubble up through it
 */
+
+let pad = document.querySelector('#input-container');
+let nums = [...document.querySelectorAll('.button-input')];
+let ops = [...document.querySelectorAll('.button-operator')];
+console.log(nums);
+console.log(ops);
+
+// input
+var addToDisplay = function(event) {
+  let display = document.getElementById('display'); // now display points to the display element
+  //let displayString = display.innerHTML; // this just copies the text in the display to a primitive variable displayString
+  //console.log(displayString);
+  //display.innerHTML = '1000 +';
+  
+}
+
+pad.addEventListener('click', addToDisplay);

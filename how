@@ -1,0 +1,65 @@
+[33mcommit 49d55f0eedc54251da3cf85c698ab6ed7a642b59[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: plasticneuron <plasticneuron@posteo.net>
+Date:   Sun Oct 27 12:50:51 2019 +0000
+
+    Renamed 'minus' to 'subtract' throughout and listed core Javascript functions to be produced
+
+[33mcommit c11f4d02d2683c38c8dead012572320b90d7dbdd[m
+Author: plasticneuron <plasticneuron@posteo.net>
+Date:   Sun Oct 27 12:30:44 2019 +0000
+
+    More README edits, including a more full description of the calculator's available functionality
+
+[33mcommit 9b450f5dbd1b619955213d599f6c6f62fb8b01dd[m
+Author: plasticneuron <plasticneuron@posteo.net>
+Date:   Sat Oct 26 16:29:24 2019 +0100
+
+    Added backspace button in place of memory recall, and added some lines to the README on functionality
+
+[33mcommit c25b746ef351c06787b486f82d8122a0de40a51d[m
+Author: plasticneuron <plasticneuron@posteo.net>
+Date:   Sat Oct 26 16:03:59 2019 +0100
+
+    More minor style adjustments
+
+[33mcommit 0fe71fe8908ba8359b78e3dd969a0b8a48cfeca2[m
+Author: plasticneuron <plasticneuron@posteo.net>
+Date:   Sat Oct 26 16:01:21 2019 +0100
+
+    Did essential structural styling of calculator. Not pretty but sufficient for working on functionality.
+
+[33mcommit 6c9dd3db9cee20dc72d2c3c475d1521a1d6b204c[m
+Author: plasticneuron <plasticneuron@posteo.net>
+Date:   Sat Oct 26 15:06:03 2019 +0100
+
+    Removed power and root operators and added essential selectors to CSS sheet
+
+[33mcommit e54fdf1f7ec77a5539cc1cc4df00c94b784f0401[m
+Author: plasticneuron <plasticneuron@posteo.net>
+Date:   Sat Oct 26 14:47:33 2019 +0100
+
+    Made class names more BEM consistent
+
+[33mcommit e49764606c00448ebfcbf1cb159a3185f78a7806[m
+Author: plasticneuron <plasticneuron@posteo.net>
+Date:   Fri Oct 25 19:41:14 2019 +0100
+
+    Corrected HTML entity for root button
+
+[33mcommit d9e77a81faeb69a64dc5cc68d0ffc59c0451e11d[m
+Author: plasticneuron <plasticneuron@posteo.net>
+Date:   Fri Oct 25 19:38:08 2019 +0100
+
+    Added HTML, CSS and JS files and built basic HTML structure
+
+[33mcommit 5818399e7243c7a7a95a3d23284fc0adb73300c9[m
+Author: plasticneuron <plasticneuron@posteo.net>
+Date:   Fri Oct 25 19:05:57 2019 +0100
+
+    Fixed list in README to display as such (markup error due to whitespace)
+
+[33mcommit 4a163ca8a64e28249f5365b9f348a52b9e325cf0[m
+Author: plasticneuron <plasticneuron@posteo.net>
+Date:   Fri Oct 25 19:01:20 2019 +0100
+
+    Git initialised and basic README file created

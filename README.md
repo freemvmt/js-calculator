@@ -9,7 +9,7 @@
 ## Functionality
 
 * The calculator's input mode is formulaic, rather than immediate-executional, meaning the user can enter the full equation they would like calculated, without adjusting for order of operation, before hitting the equals (=) key
-* This makes for a more declarative rather than imperative approach, where the computer will determine in what order to conduct operations (according to the usual hierarchy of division first, followed by multiplication, addition, and finally subtraction)
+* This makes for a more declarative rather than imperative approach, where the computer will determine in what order to conduct operations (according in this case to the operator precedence built into Javascript, which executes division and multiplication ahead of addition and subtraction and is therefore sufficient for our purposes)
 * Negative numbers can be handled by pushing the subtract (-) key before entering the value in question (this is only permitted immediately after hitting either the mutliplication (x) or division (/) key)
 * A basic recall function is available: pressing the memory storage key (M) will store the full contents of the display at that instant, which can later be added to the input stream by pressing the same key again, simultaneously clearing the storage
 * The last answer (ANS) key recalls the result of the most recent evaluation and adds it to the input stream

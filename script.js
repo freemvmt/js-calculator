@@ -1,5 +1,4 @@
 /* Functions to write:
-- execution of on-screen expression and representation of result
 - total reset
 - last answer recall
 - memory storage and recall
@@ -17,6 +16,7 @@
 /* Notes:
 - might be easier (and more in keeping with functional programming norms) to only parse the displayed string on execution rather than constantly during input phase
 - can catch all button press events on the input-container div because they will all bubble up through it
+- will need to think about cases where infinities are involved (e.g. division by zero)
 */
 
 // assign event-catching container to a variable
@@ -27,6 +27,7 @@ let display = document.querySelector('#display');
 
 // assign arrays of button categories to variables
 let inputs = [...document.querySelectorAll('.button-input')];
+let nums = inputs.slice(0.10);
 let nonZeroNums = inputs.slice(0,9);
 let operators = [...document.querySelectorAll('.button-operator')];
 
@@ -43,11 +44,13 @@ let subtractButton = document.querySelector('#subtract');
 let multiplyButton = document.querySelector('#multiply');
 let divideButton = document.querySelector('#divide');
 
-// assign useful regular expressions
+// initialise useful regular expressions
 let opRegex = /[+-/*]+/ // matches any run of operators (possibilities: +,-,*,/,+-,*-,/-)
 let numRegex = /[0-9]+/ // matches any run of numbers
 
-// global mutable variables
+// initialise global mutable variables (betraying functional programming...)
+var lastResult = '';
+var justExecuted = false;
 
 // make function to handle inputs to display/expression
 var addToDisplay = function(event) {
@@ -56,8 +59,24 @@ var addToDisplay = function(event) {
   let lastNum = (display.textContent.match(/[.0-9]+$/) || [''])[0]; // captures last run of digits (w/ or w/o decimal point), or else resolves to an empty string
   let lastOps = (display.textContent.match(/[+-/*]+$/) || [''])[0]; // captures last run of operators, or else resolves to an empty string
 
-  // first deal with initial/reset case (display text == '0')
-  if (display.textContent.length == 1 && lastChar == '0') {
+  // then deal with the screen displaying a result of execution
+  if (justExecuted) {
+    justExecuted = false; // reset execution monitor
+    if (operators.includes(event.target)) {
+      event.target == divideButton ? display.textContent += '/' :
+        event.target == multiplyButton ? display.textContent += '*' :
+        display.textContent += event.target.textContent;
+    }
+    else if (event.target == pointButton) {
+      display.textContent = '0.';
+    }
+    else if (nums.includes(event.target)) {
+      display.textContent = event.target.textContent;
+    }
+  }
+
+  // then deal with initial/reset case (display text == '0')
+  else if (display.textContent.length == 1 && lastChar == '0') {
     if (nonZeroNums.includes(event.target)) {
       display.textContent = event.target.textContent;
     }
@@ -71,7 +90,7 @@ var addToDisplay = function(event) {
     }
   }
 
-  // then deal with normal flow
+  // and finally deal with normal flow
   else {
     // input: 0
     // only case where zero can't be added is if this produces multiple zeroes at start of a number
@@ -127,10 +146,10 @@ var backspace = function(event) {
 // make function to handle execution of on-screen expression
 var execute = function(event) {
   if (event.target == equalsButton) {
-    // is use of eval safe here because the possible inputs are tightly controlled?
-    let result = eval(display.textContent);
-    console.log(result);
-    display.textContent = result;
+    lastResult = eval(display.textContent); // is use of eval safe here because the possible inputs are tightly controlled?
+    // we will represent the number rounded to 5 decimal places, where necessary
+    display.textContent = +(lastResult.toFixed(5));
+    justExecuted = true;
   }
 }
 

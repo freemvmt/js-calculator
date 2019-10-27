@@ -50,6 +50,8 @@ let divideButton = document.querySelector('#divide');
 let opRegex = /[+-/*]+/ // matches any run of operators (possibilities: +,-,*,/,+-,*-,/-)
 let numRegex = /[0-9]+/ // matches any run of numbers
 
+// global mutable variables
+
 // make function to handle inputs to display/expression
 var addToDisplay = function(event) {
   // initialise diagnostic strings

@@ -52,7 +52,7 @@ var memory = '';
 var lastResult = '';
 var justExecuted = false;
 
-// make function to handle inputs to display/expression
+// make function to handle inputs to the displayed expression
 var addToDisplay = function(event) {
   // initialise diagnostic strings
   let lastChar = display.textContent.slice(-1);
@@ -133,7 +133,6 @@ var addToDisplay = function(event) {
       }
     }
   }
-  // not yet handled: case when result is displayed
 }
 
 // make function to handle deletions
@@ -163,10 +162,35 @@ var reset = function(event) {
   }
 }
 
-// make function to enable memory storage
+// make function to enable memory storage and recall
 var remember = function(event) {
   if (event.target == memButton) {
-    memory = display.textContent;
+    // storage, when memory empty
+    if (memory == '') {
+      memory = display.textContent;
+      console.log(`stored in memory: ${memory}`);
+    }
+    // recall, when memory non-empty
+    else {
+      let k = memory.length;
+      if (k == 1) {
+        addToDisplay(memory);
+        memory = '';
+      }
+      else {
+        origin = display.textContent;
+        d = display.textContent.length;
+        for (let i=0;i++;i<k) {
+          addToDisplay(memory.charAt(i));
+        }
+        if (!(d + k == display.textContent.length)) { // test for compatibility failure
+          display.textContent = origin // reset display and keep memory intact for future attempt
+        }
+        else {
+          memory = ''; // reset memory for future storage
+        }
+      }
+    }
   }
 }
 
@@ -175,3 +199,4 @@ pad.addEventListener('click',addToDisplay);
 pad.addEventListener('click',backspace);
 pad.addEventListener('click',execute);
 pad.addEventListener('click',reset);
+pad.addEventListener('click',remember);

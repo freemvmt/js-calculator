@@ -145,7 +145,10 @@ var backspace = function(event) {
 // make function to handle execution of on-screen expression
 var execute = function(event) {
   if (event.target == equalsButton) {
-    lastResult = eval(display.textContent); // is use of eval safe here because the possible inputs are tightly controlled?
+    // before submitting our expression to evaluation we have to trim any operators
+    let lastOps = (display.textContent.match(/[+-/*]+$/) || [''])[0];
+    let submission = lastOps.length > 0 ? display.textContent.slice(0,-lastOps.length) : display.textContent;
+    lastResult = eval(submission); // is use of eval safe here because the possible inputs are tightly controlled?
     // we will represent the number rounded to 5 decimal places, where necessary
     display.textContent = +(lastResult.toFixed(5));
     justExecuted = true;

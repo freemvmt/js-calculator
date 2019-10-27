@@ -49,6 +49,7 @@ let opRegex = /[+-/*]+/ // matches any run of operators (possibilities: +,-,*,/,
 let numRegex = /[0-9]+/ // matches any run of numbers
 
 // initialise global mutable variables (betraying functional programming...)
+var memory = '';
 var lastResult = '';
 var justExecuted = false;
 
@@ -153,7 +154,18 @@ var execute = function(event) {
   }
 }
 
+// make function to handle total reset
+var reset = function(event) {
+  if (event.target == clearButton) {
+    memory = '';
+    lastResult = '';
+    justExecuted = false;
+    display.textContent = '0';
+  }
+}
+
 // attach all event listeners to the input-container object
 pad.addEventListener('click',addToDisplay);
 pad.addEventListener('click',backspace);
 pad.addEventListener('click',execute);
+pad.addEventListener('click',reset);

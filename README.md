@@ -4,7 +4,7 @@
 
 * This calculator is built for the FAC pre-course
 * It is written in vanilla Javascript (i.e. without frameworks)
-* It follows the user design brief of the [advanced front end calculator project](https://www.freecodecamp.org/learn/front-end-libraries/front-end-libraries-projects/build-a-javascript-calculator) on *freeCodeCamp*
+* It follows the user design brief of the [advanced front end calculator project](https://www.freecodecamp.org/learn/front-end-libraries/front-end-libraries-projects/build-a-javascript-calculator) on *freeCodeCamp* (the only 'user story' I don't satisfy is #13 - I require that users delete incorrect operators rather than have them pile up on the display)
 
 ## Functionality
 

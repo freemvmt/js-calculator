@@ -1,17 +1,3 @@
-/* Functions to write:
-- last answer recall
-- memory storage and recall
-*/
-
-/* Global variables required:
-1. string currently displayed on screen
-2. working array of numbers and operands representing the expression to be executed
-3. the result of the most recent evaluation
-4. the working array stored by pressing M (could be empty)
-5. the number string stored by pressing M (could be empty)
-(one but not both of the above two could be empty after an M press)
-*/
-
 /* Notes:
 - might be easier (and more in keeping with functional programming norms) to only parse the displayed string on execution rather than constantly during input phase
 - can catch all button press events on the input-container div because they will all bubble up through it
@@ -78,18 +64,20 @@ var addToDisplay = function(event) {
   let lastNum = (display.textContent.match(/[.0-9]+$/) || [''])[0]; // captures last run of digits (w/ or w/o decimal point), or else resolves to an empty string
   let lastOps = (display.textContent.match(/[+-/*]+$/) || [''])[0]; // captures last run of operators, or else resolves to an empty string
 
-  // then deal with the screen displaying a result of execution
+  // first deal with the screen displaying a result of execution
   if (justExecuted) {
-    justExecuted = false; // reset execution monitor
     if (operators.includes(event.target)) {
+      justExecuted = false; // reset execution monitor (needs to be inside if tests for appropriate buttons or it will reset on any click)
       event.target == divideButton ? display.textContent += '/' :
         event.target == multiplyButton ? display.textContent += '*' :
         display.textContent += event.target.textContent;
     }
     else if (event.target == pointButton) {
+      justExecuted = false;
       display.textContent = '0.';
     }
     else if (nums.includes(event.target)) {
+      justExecuted = false;
       display.textContent = event.target.textContent;
     }
   }
@@ -167,10 +155,9 @@ var execute = function(event) {
     // before submitting our expression to evaluation we have to trim any operators
     let lastOps = (display.textContent.match(/[+-/*]+$/) || [''])[0];
     let submission = lastOps.length > 0 ? display.textContent.slice(0,-lastOps.length) : display.textContent;
-    lastResult = eval(submission); // is use of eval safe here because the possible inputs are tightly controlled?
-    // we will represent the number rounded to 5 decimal places, where necessary
-    display.textContent = +(lastResult.toFixed(5));
-    justExecuted = true;
+    // is use of eval safe here because the possible inputs are tightly controlled?
+    display.textContent = lastResult = (+(eval(submission).toFixed(5))).toString(); // we will represent the number rounded to 5 decimal places, where necessary
+    justExecuted = true; // flip execution monitor
   }
 }
 
@@ -193,6 +180,16 @@ var remember = function(event) {
     }
     // recall, when memory non-empty
     else {
+      // need to cover same cases as usual input function
+      if (justExecuted) {
+        display.textContent = memory;
+        memory = '';
+        justExecuted = false;
+      }
+      else if (display.textContent.length == 1 && lastChar == '0') {
+        display.textContent = memory;
+        memory = '';
+      }
       let k = memory.length;
       let d = display.textContent.length;
       let origin = display.textContent;
@@ -206,6 +203,31 @@ var remember = function(event) {
       }
     }
   }
+
+// make function to enable last answer recall
+var recall = function(event) {
+  if (event.target == ansButton) {
+    if (justExecuted) {
+      // no need to re-assign the display to lastResult, since it should still show the result in question
+      justExecuted = false;
+    }
+    else if (display.textContent.length == 1 && lastChar == '0') {
+      display.textContent = lastResult;
+    }
+    else {
+      // follow same method as remember to ensure compatibility of lastResult with currently displayed expression
+      let k = lastResult.length;
+      let d = display.textContent.length;
+      let origin = display.textContent;
+      for (let i=0;i<k;i++) {
+        let char = lastResult.charAt(i);
+        document.getElementById(dict[char]).click();
+      }
+      if (!(d + k == display.textContent.length)) {
+        display.textContent = origin;
+      }
+    }
+  }
 }
 
 // attach all event listeners to the input-container object
@@ -214,3 +236,4 @@ pad.addEventListener('click',backspace);
 pad.addEventListener('click',execute);
 pad.addEventListener('click',reset);
 pad.addEventListener('click',remember);
+pad.addEventListener('click',recall);

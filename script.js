@@ -52,8 +52,8 @@ var memory = '';
 var lastResult = '';
 var justExecuted = false;
 
-// make dictionary object to relate textContent of elements to their ids
-let textContents = {
+// make dictionary object to relate display characters of elements to their ids
+let dict = {
   0: 'zero',
   1: 'one',
   2: 'two',
@@ -64,11 +64,11 @@ let textContents = {
   7: 'seven',
   8: 'eight',
   9: 'nine',
-  .: 'point',
-  +: 'add',
-  -: 'subtract',
-  &divide: 'divide',
-  &multiply: 'multiply';
+  '.': 'point',
+  '+': 'add',
+  '-': 'subtract',
+  '/': 'divide',
+  '*': 'multiply'
 }
 
 // make function to handle inputs to the displayed expression
@@ -190,30 +190,19 @@ var remember = function(event) {
     // storage, when memory empty
     if (memory == '') {
       memory = display.textContent;
-      console.log(`stored in memory: ${memory}`);
     }
     // recall, when memory non-empty
     else {
       let k = memory.length;
       let d = display.textContent.length;
       let origin = display.textContent;
-      let
       for (let i=0;i<k;i++) {
-        console.log(memory.charAt(i));
-        // to make this work I need to identi
-        addToDisplay(memory.charAt(i));
+        let char = memory.charAt(i);
+        document.getElementById(dict[char]).click(); // use dictionary to decide element on which to produce virtual click event
       }
-      // diagnostics
-      console.log(`memory length: ${d}`);
-      console.log(`original display length: ${k}`);
-      console.log(`new display length: ${display.textContent.length}`);
-      if (d + k == display.textContent.length) { // test for compatibility
-        memory = ''; // if successful, reset memory for future storage
-        console.log('compatible!');
-      }
-      else {
-        display.textContent = origin // else, reset display and keep memory intact for future attempt
-        console.log('compatibility failure');
+      d + k == display.textContent.length ? // test for compatibility
+        memory = '' : // if successful, reset memory for future storage
+        display.textContent = origin; // else, reset display and keep memory intact for future attempt
       }
     }
   }

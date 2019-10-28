@@ -176,22 +176,22 @@ var remember = function(event) {
     // recall, when memory non-empty
     else {
       let k = memory.length;
-      if (k == 1) {
-        addToDisplay(memory);
-        memory = '';
+      let d = display.textContent.length;
+      let origin = display.textContent;
+      for (let i=0;i<k;i++) {
+        console.log(memory.charAt(i));
+        addToDisplay(memory.charAt(i));
+      }
+      console.log(`memory length: ${d}`);
+      console.log(`original display length: ${k}`);
+      console.log(`new display length: ${display.textContent.length}`);
+      if (d + k == display.textContent.length) { // test for compatibility
+        memory = ''; // if successful, reset memory for future storage
+        console.log('compatible!');
       }
       else {
-        origin = display.textContent;
-        d = display.textContent.length;
-        for (let i=0;i++;i<k) {
-          addToDisplay(memory.charAt(i));
-        }
-        if (!(d + k == display.textContent.length)) { // test for compatibility failure
-          display.textContent = origin // reset display and keep memory intact for future attempt
-        }
-        else {
-          memory = ''; // reset memory for future storage
-        }
+        display.textContent = origin // else, reset display and keep memory intact for future attempt
+        console.log('compatibility failure');
       }
     }
   }

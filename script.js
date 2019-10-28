@@ -52,6 +52,25 @@ var memory = '';
 var lastResult = '';
 var justExecuted = false;
 
+// make dictionary object to relate textContent of elements to their ids
+let textContents = {
+  0: 'zero';
+  1: 'one';
+  2: 'two';
+  3: 'three';
+  4: 'four';
+  5: 'five';
+  6: 'six';
+  7: 'seven';
+  8: 'eight';
+  9: 'nine';
+  .: 'point';
+  +: 'add';
+  -: 'subtract';
+  &divide: 'divide';
+  &multiply: 'multiply';
+}
+
 // make function to handle inputs to the displayed expression
 var addToDisplay = function(event) {
   // initialise diagnostic strings
@@ -178,10 +197,13 @@ var remember = function(event) {
       let k = memory.length;
       let d = display.textContent.length;
       let origin = display.textContent;
+      let
       for (let i=0;i<k;i++) {
         console.log(memory.charAt(i));
+        // to make this work I need to identi
         addToDisplay(memory.charAt(i));
       }
+      // diagnostics
       console.log(`memory length: ${d}`);
       console.log(`original display length: ${k}`);
       console.log(`new display length: ${display.textContent.length}`);
